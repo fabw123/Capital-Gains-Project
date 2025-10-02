@@ -1,11 +1,4 @@
 ﻿using Cg.Console.Models;
-using Cg.Console.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Cg.Console.Operations
 {
@@ -46,7 +39,6 @@ namespace Cg.Console.Operations
                 return new Output( totalProfit * (Tax/100) );
             }
 
-           
             return Output.Default;
         }
     }
