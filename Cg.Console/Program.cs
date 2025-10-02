@@ -1,30 +1,22 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Cg.Console;
 using Cg.Console.Models;
 using Cg.Console.Services;
 using System.Text.Json;
 
-List <Input[]> inputs = [];
-var inputString = Console.ReadLine();
-while(!string.IsNullOrWhiteSpace(inputString))
+List <string> inputs = [];
+var inputLine = Console.ReadLine();
+while(!string.IsNullOrWhiteSpace(inputLine))
 {
-    inputs.Add(JsonSerializer.Deserialize<Input[]>(inputString) ?? []);
-    inputString = Console.ReadLine();
+    inputs.Add(inputLine);
+    inputLine = Console.ReadLine();
 }
 
+var result = Runner.Run(inputs);
 
-List<List<Output>> results = [];
-TransactionService transactionService;
-
-foreach (var transactions in inputs)
+foreach(var output in result)
 {
-    transactionService = new(transactions);
-    var sessionResults = transactionService.Execute();
-    results.Add(sessionResults);
-}
-
-foreach (var result in results)
-{
-    Console.WriteLine(JsonSerializer.Serialize(result));
+    Console.WriteLine(output);
 }
 
 
