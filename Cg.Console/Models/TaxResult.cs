@@ -6,7 +6,7 @@ namespace Cg.Console.Models
     {
         public TaxResult(decimal tax)
         {
-            Tax = tax;
+            Tax = Math.Round(tax, 2, MidpointRounding.AwayFromZero);
         }
 
         [JsonPropertyName("tax")]
