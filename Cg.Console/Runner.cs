@@ -1,4 +1,5 @@
-﻿using Cg.Console.Models;
+﻿using Cg.Console.Exceptions;
+using Cg.Console.Models;
 using Cg.Console.Services;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,16 @@ namespace Cg.Console
             var results = new List<string>();
             foreach (var transactions in inputs)
             {
-                var service = new TransactionService(transactions);
-                var result = service.Execute();
-                results.Add(JsonSerializer.Serialize(result));
+                try
+                {
+                    var service = new TransactionService(transactions);
+                    var result = service.Execute();
+                    results.Add(JsonSerializer.Serialize(result));
+                }
+                catch (OutOfStockException ex)
+                {
+                    results.Add(ex.Message);
+                }
             }
 
             return results;
