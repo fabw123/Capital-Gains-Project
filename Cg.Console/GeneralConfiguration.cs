@@ -1,5 +1,9 @@
-﻿namespace Cg.Console
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Cg.Console
 {
+
+    [ExcludeFromCodeCoverage]
     public static class GeneralConfiguration
     {
         public const string OPERATION_BUY = "buy";
