@@ -1,5 +1,6 @@
 ﻿using Cg.Console;
 using Cg.Console.Models;
+using Cg.Console.Utils;
 using Cg.Tests.IntegrationTests.TestFiles;
 using System.Text.Json;
 
@@ -44,8 +45,6 @@ namespace Cg.Tests.IntegrationTests
         {
             var inputCase1 = InputResources.ResourceManager.GetString("case1");
             var inputCase2 = InputResources.ResourceManager.GetString("case2");
-            var outputCase1 = OutputResources.ResourceManager.GetString("case1");
-            var outputCase2 = OutputResources.ResourceManager.GetString("case2");
             List<string> inputLines = [inputCase1, inputCase2];
 
             var result = Runner.Run(inputLines);
@@ -61,6 +60,40 @@ namespace Cg.Tests.IntegrationTests
                 Assert.AreEqual(inputContent.Length, outputContent.Length);
             }
 
+        }
+
+        [TestMethod]
+        public void MultipleExecutions_fail_StockOutOfStock()
+        {
+            var inputCase1 = InputResources.ResourceManager.GetString("case1");
+            var inputContentCase1 = JsonSerializer.Deserialize<Input[]>(inputCase1);
+            var inputOutOfStock = InputResources.ResourceManager.GetString("caseOutOfStock");
+            List<string> inputLines = [inputCase1, inputOutOfStock];
+
+            var result = Runner.Run(inputLines);
+            var resultCase1Content = JsonSerializer.Deserialize<Output[]>(result[0]);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(inputLines.Count, result.Count);
+            Assert.AreEqual(inputContentCase1.Length, resultCase1Content.Length);
+            Assert.AreEqual(ErrorMessages.NOT_ENOUGH_STOCK, result[1]);
+        }
+
+        [TestMethod]
+        public void MultipleExecutions_fail_InvalidOperation()
+        {
+            var inputCase2 = InputResources.ResourceManager.GetString("case2");
+            var inputContentCase1 = JsonSerializer.Deserialize<Input[]>(inputCase2);
+            var inputInvalidOperation = InputResources.ResourceManager.GetString("caseInvalidOperation");
+            List<string> inputLines = [inputCase2, inputInvalidOperation];
+
+            var result = Runner.Run(inputLines);
+            var resultCase1Content = JsonSerializer.Deserialize<Output[]>(result[0]);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(inputLines.Count, result.Count);
+            Assert.AreEqual(inputContentCase1.Length, resultCase1Content.Length);
+            Assert.AreEqual(string.Format(ErrorMessages.INVALID_OPERATION, "change"), result[1]);
         }
     }
 }

@@ -140,5 +140,23 @@ namespace Cg.Tests.IntegrationTests.TestFiles {
                 return ResourceManager.GetString("case9", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [{&quot;operation&quot;:&quot;buy&quot;, &quot;unit-cost&quot;:10.00, &quot;quantity&quot;: 100},{&quot;operation&quot;:&quot;change&quot;, &quot;unit-cost&quot;:15.00, &quot;quantity&quot;: 150}].
+        /// </summary>
+        internal static string caseInvalidOperation {
+            get {
+                return ResourceManager.GetString("caseInvalidOperation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [{&quot;operation&quot;:&quot;buy&quot;, &quot;unit-cost&quot;:10.00, &quot;quantity&quot;: 100},{&quot;operation&quot;:&quot;sell&quot;, &quot;unit-cost&quot;:15.00, &quot;quantity&quot;: 150}].
+        /// </summary>
+        internal static string caseOutOfStock {
+            get {
+                return ResourceManager.GetString("caseOutOfStock", resourceCulture);
+            }
+        }
     }
 }
