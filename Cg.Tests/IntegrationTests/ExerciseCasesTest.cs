@@ -25,11 +25,11 @@ namespace Cg.Tests.IntegrationTests
         {
             var input = InputResources.ResourceManager.GetString(useCase);
             var output = OutputResources.ResourceManager.GetString(useCase);
-            var expectedOutput = JsonSerializer.Deserialize<Output[]>(output);
+            var expectedOutput = JsonSerializer.Deserialize<TaxResult[]>(output);
             List<string> inputLines = [input];
             var result = Runner.Run(inputLines);
 
-            var actualOutput = JsonSerializer.Deserialize<Output[]>(result.FirstOrDefault());
+            var actualOutput = JsonSerializer.Deserialize<TaxResult[]>(result.FirstOrDefault());
             Assert.IsNotNull(result);
             Assert.AreEqual(inputLines.Count, result.Count);
             Assert.AreEqual(expectedOutput.Length, actualOutput.Length);
@@ -54,8 +54,8 @@ namespace Cg.Tests.IntegrationTests
 
             for (int i = 0; i < result.Count; i++)
             {
-                var inputContent = JsonSerializer.Deserialize<Input[]>(inputLines[i]);
-                var outputContent = JsonSerializer.Deserialize<Output[]>(result[i]);
+                var inputContent = JsonSerializer.Deserialize<TradeOperation[]>(inputLines[i]);
+                var outputContent = JsonSerializer.Deserialize<TaxResult[]>(result[i]);
 
                 Assert.AreEqual(inputContent.Length, outputContent.Length);
             }
@@ -66,12 +66,12 @@ namespace Cg.Tests.IntegrationTests
         public void MultipleExecutions_fail_StockOutOfStock()
         {
             var inputCase1 = InputResources.ResourceManager.GetString("case1");
-            var inputContentCase1 = JsonSerializer.Deserialize<Input[]>(inputCase1);
+            var inputContentCase1 = JsonSerializer.Deserialize<TradeOperation[]>(inputCase1);
             var inputOutOfStock = InputResources.ResourceManager.GetString("caseOutOfStock");
             List<string> inputLines = [inputCase1, inputOutOfStock];
 
             var result = Runner.Run(inputLines);
-            var resultCase1Content = JsonSerializer.Deserialize<Output[]>(result[0]);
+            var resultCase1Content = JsonSerializer.Deserialize<TaxResult[]>(result[0]);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(inputLines.Count, result.Count);
@@ -83,12 +83,12 @@ namespace Cg.Tests.IntegrationTests
         public void MultipleExecutions_fail_InvalidOperation()
         {
             var inputCase2 = InputResources.ResourceManager.GetString("case2");
-            var inputContentCase1 = JsonSerializer.Deserialize<Input[]>(inputCase2);
+            var inputContentCase1 = JsonSerializer.Deserialize<TradeOperation[]>(inputCase2);
             var inputInvalidOperation = InputResources.ResourceManager.GetString("caseInvalidOperation");
             List<string> inputLines = [inputCase2, inputInvalidOperation];
 
             var result = Runner.Run(inputLines);
-            var resultCase1Content = JsonSerializer.Deserialize<Output[]>(result[0]);
+            var resultCase1Content = JsonSerializer.Deserialize<TaxResult[]>(result[0]);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(inputLines.Count, result.Count);

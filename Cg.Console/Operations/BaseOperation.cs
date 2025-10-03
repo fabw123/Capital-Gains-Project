@@ -1,18 +1,19 @@
 ﻿using Cg.Console.Models;
+using Cg.Console.Utils;
 
 namespace Cg.Console.Operations
 {
     public abstract class BaseOperation
     {
-        protected TransactionSession _session;
-        public BaseOperation(TransactionSession transactionSession)
+        protected TradeSession _session;
+        public BaseOperation(TradeSession tradeSession)
         {
-            _session = transactionSession;
+            _session = tradeSession;
         }
         public abstract string Type { get; }
-        public virtual decimal Tax => GeneralConfiguration.TAX;
+        public virtual decimal Tax => GeneralConfiguration.TAX_PERCENTAGE;
 
-        public abstract Output Execute(Input input);
+        public abstract TaxResult Execute(TradeOperation tradeOperation);
 
 
     }

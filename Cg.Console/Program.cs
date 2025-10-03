@@ -4,15 +4,15 @@ using Cg.Console.Models;
 using Cg.Console.Services;
 using System.Text.Json;
 
-List <string> inputs = [];
+List <string> inputLines = [];
 var inputLine = Console.ReadLine();
 while(!string.IsNullOrWhiteSpace(inputLine))
 {
-    inputs.Add(inputLine);
+    inputLines.Add(inputLine);
     inputLine = Console.ReadLine();
 }
 
-var result = Runner.Run(inputs);
+var result = Runner.Run(inputLines);
 
 foreach(var output in result)
 {

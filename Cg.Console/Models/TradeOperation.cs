@@ -2,9 +2,9 @@
 
 namespace Cg.Console.Models
 {
-    public record Input
+    public record TradeOperation
     {
-        public Input(string operation, decimal unitCost, int quantity)
+        public TradeOperation(string operation, decimal unitCost, int quantity)
         {
             Operation = operation;
             UnitCost = unitCost;

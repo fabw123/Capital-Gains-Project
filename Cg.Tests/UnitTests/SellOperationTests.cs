@@ -1,7 +1,7 @@
-﻿using Cg.Console;
-using Cg.Console.Exceptions;
+﻿using Cg.Console.Exceptions;
 using Cg.Console.Models;
 using Cg.Console.Operations;
+using Cg.Console.Utils;
 
 namespace Cg.Tests.UnitTests
 {
@@ -10,24 +10,24 @@ namespace Cg.Tests.UnitTests
     public class SellOperationTests
     {
         SellOperation operation;
-        TransactionSession session;
+        TradeSession session;
 
         [TestMethod]
         public void Execute_Succeed()
         {
             int initialStock = 300;
             decimal initialWAP = 100;
-            session = new TransactionSession()
+            session = new TradeSession()
             {
                 Stock = initialStock,
                 WeightAvaragePrice = initialWAP,
-                Looses = 0
+                Losses = 0
             };
-            Input transaction = new(GeneralConfiguration.OPERATION_SELL, 200, 300);
+            TradeOperation transaction = new(GeneralConfiguration.OPERATION_SELL, 200, 300);
             
             decimal costOfStock = session.WeightAvaragePrice * transaction.Quantity;
             decimal profitOfTransaction = (transaction.Quantity * transaction.UnitCost) - costOfStock;
-            decimal expectedTax = profitOfTransaction * (GeneralConfiguration.TAX/100);
+            decimal expectedTax = profitOfTransaction * GeneralConfiguration.TAX_PERCENTAGE;
             int expectedStock = initialStock - transaction.Quantity;
 
             operation = new SellOperation(session);
@@ -44,17 +44,17 @@ namespace Cg.Tests.UnitTests
         {
             int initialStock = 300;
             decimal initialWAP = 100;
-            session = new TransactionSession()
+            session = new TradeSession()
             {
                 Stock = initialStock,
                 WeightAvaragePrice = initialWAP,
-                Looses = 0
+                Losses = 0
             };
-            Input transaction = new(GeneralConfiguration.OPERATION_SELL, 200, 50);
+            TradeOperation transaction = new(GeneralConfiguration.OPERATION_SELL, 200, 50);
 
             decimal costOfStock = session.WeightAvaragePrice * transaction.Quantity;
             decimal profitOfTransaction = (transaction.Quantity * transaction.UnitCost) - costOfStock;
-            decimal expectedTax = profitOfTransaction * (GeneralConfiguration.TAX / 100);
+            decimal expectedTax = profitOfTransaction * GeneralConfiguration.TAX_PERCENTAGE;
             int expectedStock = initialStock - transaction.Quantity;
 
             operation = new SellOperation(session);
@@ -71,13 +71,13 @@ namespace Cg.Tests.UnitTests
         {
             int initialStock = 300;
             decimal initialWAP = 100;
-            session = new TransactionSession()
+            session = new TradeSession()
             {
                 Stock = initialStock,
                 WeightAvaragePrice = initialWAP,
-                Looses = 0
+                Losses = 0
             };
-            Input transaction = new(GeneralConfiguration.OPERATION_SELL, 90, 300);
+            TradeOperation transaction = new(GeneralConfiguration.OPERATION_SELL, 90, 300);
 
             decimal costOfStock = session.WeightAvaragePrice * transaction.Quantity;
             decimal profitOfTransaction = (transaction.Quantity * transaction.UnitCost) - costOfStock;
@@ -91,7 +91,7 @@ namespace Cg.Tests.UnitTests
             Assert.AreEqual(expectedTax, taxResult.Tax);
             Assert.AreEqual(expectedStock, session.Stock);
             Assert.AreEqual(initialWAP, session.WeightAvaragePrice);
-            Assert.AreEqual(profitOfTransaction, session.Looses);
+            Assert.AreEqual(profitOfTransaction, session.Losses);
         }
 
         [TestMethod]
@@ -99,18 +99,18 @@ namespace Cg.Tests.UnitTests
         {
             int initialStock = 300;
             decimal initialWAP = 100;
-            session = new TransactionSession()
+            session = new TradeSession()
             {
                 Stock = initialStock,
                 WeightAvaragePrice = initialWAP,
-                Looses = -20000
+                Losses = -20000
             };
-            Input transaction = new(GeneralConfiguration.OPERATION_SELL, 200, 300);
+            TradeOperation transaction = new(GeneralConfiguration.OPERATION_SELL, 200, 300);
 
             decimal costOfStock = session.WeightAvaragePrice * transaction.Quantity;
             decimal profitOfTransaction = (transaction.Quantity * transaction.UnitCost) - costOfStock;
-            decimal loosesDeducted = profitOfTransaction + session.Looses;
-            decimal expectedTax = loosesDeducted * (GeneralConfiguration.TAX / 100);
+            decimal loosesDeducted = profitOfTransaction + session.Losses;
+            decimal expectedTax = loosesDeducted * GeneralConfiguration.TAX_PERCENTAGE;
             int expectedStock = initialStock - transaction.Quantity;
 
             operation = new SellOperation(session);
@@ -127,18 +127,18 @@ namespace Cg.Tests.UnitTests
         {
             int initialStock = 300;
             decimal initialWAP = 100;
-            session = new TransactionSession()
+            session = new TradeSession()
             {
                 Stock = initialStock,
                 WeightAvaragePrice = initialWAP,
-                Looses = -80000
+                Losses = -80000
             };
-            Input transaction = new(GeneralConfiguration.OPERATION_SELL, 200, 300);
+            TradeOperation transaction = new(GeneralConfiguration.OPERATION_SELL, 200, 300);
 
             decimal costOfStock = session.WeightAvaragePrice * transaction.Quantity;
             decimal profitOfTransaction = (transaction.Quantity * transaction.UnitCost) - costOfStock;
-            decimal loosesDeducted = profitOfTransaction + session.Looses;
-            decimal expectedTax = loosesDeducted * (GeneralConfiguration.TAX / 100);
+            decimal loosesDeducted = profitOfTransaction + session.Losses;
+            decimal expectedTax = loosesDeducted * GeneralConfiguration.TAX_PERCENTAGE;
             int expectedStock = initialStock - transaction.Quantity;
 
             operation = new SellOperation(session);
@@ -155,17 +155,17 @@ namespace Cg.Tests.UnitTests
         {
             int initialStock = 300;
             decimal initialWAP = 100;
-            session = new TransactionSession()
+            session = new TradeSession()
             {
                 Stock = initialStock,
                 WeightAvaragePrice = initialWAP,
-                Looses = 0
+                Losses = 0
             };
-            Input transaction = new(GeneralConfiguration.OPERATION_SELL, 200, 400);
+            TradeOperation transaction = new(GeneralConfiguration.OPERATION_SELL, 200, 400);
 
             decimal costOfStock = session.WeightAvaragePrice * transaction.Quantity;
             decimal profitOfTransaction = (transaction.Quantity * transaction.UnitCost) - costOfStock;
-            decimal expectedTax = profitOfTransaction * (GeneralConfiguration.TAX / 100);
+            decimal expectedTax = profitOfTransaction * GeneralConfiguration.TAX_PERCENTAGE;
             int expectedStock = initialStock - transaction.Quantity;
 
             operation = new SellOperation(session);

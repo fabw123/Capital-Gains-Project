@@ -1,18 +1,18 @@
 ﻿namespace Cg.Console.Models
 {
-    public record TransactionSession
+    public record TradeSession
     {
-        public TransactionSession()
+        public TradeSession()
         {
             Stock = 0;
             WeightAvaragePrice = 0;
-            Looses = 0;
+            Losses = 0;
         }
 
         public int Stock { get; set; }
 
         public decimal WeightAvaragePrice { get; set; }
 
-        public decimal Looses { get; set; }
+        public decimal Losses { get; set; }
     }
 }

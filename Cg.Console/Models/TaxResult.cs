@@ -2,9 +2,9 @@
 
 namespace Cg.Console.Models
 {
-    public record Output
+    public record TaxResult
     {
-        public Output(decimal tax)
+        public TaxResult(decimal tax)
         {
             Tax = tax;
         }
@@ -12,6 +12,6 @@ namespace Cg.Console.Models
         [JsonPropertyName("tax")]
         public decimal Tax { get; init; }
 
-        public static Output Default => new(0);
+        public static TaxResult Default => new(0);
     }
 }

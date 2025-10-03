@@ -6,13 +6,13 @@ namespace Cg.Console.Operations
 {
     public class OperationFactory
     {
-        public static BaseOperation GetOperation(string operationType, TransactionSession transactionSession)
+        public static BaseOperation GetOperation(string operationType, TradeSession tradeSession)
         {
             operationType = operationType.ToLower();
             BaseOperation operation = operationType switch
             {
-                GeneralConfiguration.OPERATION_BUY => new BuyOperation(transactionSession),
-                GeneralConfiguration.OPERATION_SELL => new SellOperation(transactionSession),
+                GeneralConfiguration.OPERATION_BUY => new BuyOperation(tradeSession),
+                GeneralConfiguration.OPERATION_SELL => new SellOperation(tradeSession),
                 _ => throw new InvalidOperationException(string.Format(ErrorMessages.INVALID_OPERATION, operationType))
             };
 

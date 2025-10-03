@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Cg.Console
+namespace Cg.Console.Utils
 {
 
     [ExcludeFromCodeCoverage]
@@ -11,6 +11,7 @@ namespace Cg.Console
         public const string OPERATION_SELL = "sell";
 
         public const decimal TAX = 20;
+        public static decimal TAX_PERCENTAGE => TAX/100;
 
         public const decimal TAX_EXCEPTION_LIMIT = 20000;
     }

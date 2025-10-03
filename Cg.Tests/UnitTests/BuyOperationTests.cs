@@ -1,6 +1,6 @@
-﻿using Cg.Console;
-using Cg.Console.Models;
+﻿using Cg.Console.Models;
 using Cg.Console.Operations;
+using Cg.Console.Utils;
 
 namespace Cg.Tests.UnitTests
 {
@@ -10,15 +10,15 @@ namespace Cg.Tests.UnitTests
         [TestMethod]
         public void Execute_Succeed()
         {
-            var session = new TransactionSession()
+            var session = new TradeSession()
             {
-                Looses = 0,
+                Losses = 0,
                 Stock = 0,
                 WeightAvaragePrice = 0,
             };
 
             var operation = new BuyOperation(session);
-            var transaction = new Input(GeneralConfiguration.OPERATION_BUY, 100, 20);
+            var transaction = new TradeOperation(GeneralConfiguration.OPERATION_BUY, 100, 20);
             var result = operation.Execute(transaction);
 
             Assert.IsNotNull(result);
@@ -32,15 +32,15 @@ namespace Cg.Tests.UnitTests
         {
             decimal initialWAP = 50;
             int initialStock = 20;
-            var session = new TransactionSession()
+            var session = new TradeSession()
             {
-                Looses = 0,
+                Losses = 0,
                 Stock = initialStock,
                 WeightAvaragePrice = initialWAP,
             };
 
             var operation = new BuyOperation(session);
-            var transaction = new Input(GeneralConfiguration.OPERATION_BUY, 100, 20);
+            var transaction = new TradeOperation(GeneralConfiguration.OPERATION_BUY, 100, 20);
             var result = operation.Execute(transaction);
 
             var expectedStock = initialStock + transaction.Quantity;

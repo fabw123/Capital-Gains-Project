@@ -14,18 +14,18 @@ namespace Cg.Console
     {
         public static List<string> Run(List<string> inputLines)
         {
-            var inputs = new List<Input[]>();
+            var tradeOperations = new List<TradeOperation[]>();
             foreach (string inputLine in inputLines) 
             {
-                inputs.Add(JsonSerializer.Deserialize<Input[]>(inputLine) ?? []);
+                tradeOperations.Add(JsonSerializer.Deserialize<TradeOperation[]>(inputLine) ?? []);
             }
 
             var results = new List<string>();
-            foreach (var transactions in inputs)
+            foreach (var tradeOperation in tradeOperations)
             {
                 try
                 {
-                    var service = new TransactionService(transactions);
+                    var service = new TradeService(tradeOperation);
                     var result = service.Execute();
                     results.Add(JsonSerializer.Serialize(result));
                 }
