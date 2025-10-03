@@ -1,4 +1,5 @@
-﻿using Cg.Console.Models;
+﻿using Cg.Console.Exceptions;
+using Cg.Console.Models;
 
 namespace Cg.Console.Operations
 {
@@ -13,6 +14,12 @@ namespace Cg.Console.Operations
         public override Output Execute(Input transaction)
         {
             _session.Stock = _session.Stock - transaction.Quantity;
+
+            if (_session.Stock < 0) 
+            {
+                throw new OutOfStockException("Not enough stock to execute the current set of operations.");
+            }
+
             var totalAmount = (transaction.Quantity * transaction.UnitCost);
             var totalProfit = (totalAmount - (transaction.Quantity * _session.WeightAvaragePrice));
 
