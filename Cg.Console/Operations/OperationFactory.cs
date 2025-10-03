@@ -1,5 +1,6 @@
 ﻿using Cg.Console.Exceptions;
 using Cg.Console.Models;
+using Cg.Console.Utils;
 
 namespace Cg.Console.Operations
 {
@@ -12,7 +13,7 @@ namespace Cg.Console.Operations
             {
                 GeneralConfiguration.OPERATION_BUY => new BuyOperation(transactionSession),
                 GeneralConfiguration.OPERATION_SELL => new SellOperation(transactionSession),
-                _ => throw new InvalidOperationException($"Operation {operationType} is currently unavailable.")
+                _ => throw new InvalidOperationException(string.Format(ErrorMessages.INVALID_OPERATION, operationType))
             };
 
             return operation;

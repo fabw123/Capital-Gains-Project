@@ -1,5 +1,6 @@
 ﻿using Cg.Console.Exceptions;
 using Cg.Console.Models;
+using Cg.Console.Utils;
 
 namespace Cg.Console.Operations
 {
@@ -17,7 +18,7 @@ namespace Cg.Console.Operations
 
             if (_session.Stock < 0) 
             {
-                throw new OutOfStockException("Not enough stock to execute the current set of operations.");
+                throw new OutOfStockException(ErrorMessages.NOT_ENOUGH_STOCK);
             }
 
             var totalAmount = (transaction.Quantity * transaction.UnitCost);
