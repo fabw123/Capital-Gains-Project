@@ -1,12 +1,7 @@
 ﻿using Cg.Console;
 using Cg.Console.Models;
 using Cg.Tests.IntegrationTests.TestFiles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Cg.Tests.IntegrationTests
 {
