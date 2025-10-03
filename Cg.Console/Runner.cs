@@ -33,6 +33,10 @@ namespace Cg.Console
                 {
                     results.Add(ex.Message);
                 }
+                catch (InvalidOperationException ex) 
+                { 
+                    results.Add(ex.Message);
+                }
             }
 
             return results;
