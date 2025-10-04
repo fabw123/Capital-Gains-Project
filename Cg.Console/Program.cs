@@ -19,4 +19,6 @@ foreach(var output in result)
     Console.WriteLine(output);
 }
 
+Console.ReadLine();
+
 
