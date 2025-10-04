@@ -68,8 +68,31 @@ If you have the published binaries (optional):
   ```powershell
   .\publish\windows\Cg.Console.exe
   ```
-  ---
-  <br/>
+---
+<br/>
+
+## Publish Executables (Optional)
+
+The publish folder is not included in the ZIP to keep the submission small.
+If you want to create it yourself you must run the following commands:
+
+* **Executable for Linux**
+
+    ```bash
+    dotnet publish -c Release -r linux-x64 --self-contained false -o ./publish/linux
+    ```
+* **Executable for macOS**
+
+    ```bash
+    dotnet publish -c Release -r osx-x64 --self-contained false -o ./publish/osx
+    ```
+* **Executable for Windows**
+
+  ```bash
+  dotnet publish -c Release -r win-x64 --self-contained false -o ./publish/windows
+  ```
+---
+<br/>
 
 ## ⚙️ How to Build the Project
 
@@ -89,9 +112,10 @@ In the terminal, set in the root of project run the following command:
 dotnet test
 ```
 
-
 > This runs both unit tests and integration tests.
 Integration tests use the examples provided in the challenge specification.
+---
+<br/>
 
 ## 📐 Design Decisions
 
@@ -114,7 +138,7 @@ Integration tests use the examples provided in the challenge specification.
 * `Program.cs` only reads from `stdin` and writes to `stdout`.
 * `Runner.cs` Receieves the Input Lines from the Program.cs. Each Input is a set of operations and must be managed in a different session.
 ---
-
+<br/>
 
 ## 🛠️ Technologies Used
 
@@ -123,5 +147,4 @@ Integration tests use the examples provided in the challenge specification.
 * **MSTest** for testing
 
 No external frameworks beyond the standard .NET libraries.
-
 ---
