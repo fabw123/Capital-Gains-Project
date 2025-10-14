@@ -1,0 +1,39 @@
+﻿<Project Sdk="MSTest.Sdk/3.6.4">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseVSTest>true</UseVSTest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cg.Console\Cg.Console.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="IntegrationTests\TestFiles\InputResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InputResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="IntegrationTests\TestFiles\OutputResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OutputResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="IntegrationTests\TestFiles\InputResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>InputResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="IntegrationTests\TestFiles\OutputResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OutputResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

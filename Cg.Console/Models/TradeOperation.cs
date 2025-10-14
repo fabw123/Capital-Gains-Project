@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Cg.Console.Models
 {
-    public record Input
+    public record TradeOperation
     {
-        public Input(string operation, decimal unitCost, int quantity)
+        public TradeOperation(string operation, decimal unitCost, int quantity)
         {
             Operation = operation;
             UnitCost = unitCost;
