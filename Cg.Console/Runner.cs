@@ -34,6 +34,11 @@ namespace Cg.Console
                 {
                     results.Add(ex.Message);
                     globalSession.Tries++;
+                    if (globalSession.Tries >= 3)
+                    {
+                        results = [];
+                        break;
+                    }
                 }
                 catch (InvalidOperationException ex) 
                 { 

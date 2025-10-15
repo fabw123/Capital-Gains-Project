@@ -9,6 +9,7 @@
                 {StockType.TypeA, 0 },
                 {StockType.TypeB, 0 },
                 {StockType.TypeC, 0 },
+                {StockType.Undefined, 0 },
             };
             WeightAvaragePrice = 0;
             Losses = 0;

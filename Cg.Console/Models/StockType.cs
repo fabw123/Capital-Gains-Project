@@ -12,6 +12,8 @@ namespace Cg.Console.Models
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum StockType
     {
+        Undefined = 0,
+
         [EnumMember(Value = "typea")]
         TypeA = 1,
 
