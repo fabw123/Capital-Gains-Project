@@ -4,7 +4,12 @@
     {
         public TradeSession()
         {
-            Stock = 0;
+            Stock = new()
+            {
+                {StockType.TypeA, 0 },
+                {StockType.TypeB, 0 },
+                {StockType.TypeC, 0 },
+            };
             WeightAvaragePrice = 0;
             Losses = 0;
         }
@@ -17,9 +22,15 @@
             set { _weightAvaragePrice = Math.Round(value, 2, MidpointRounding.AwayFromZero); }
         }
 
-        public int Stock { get; set; }
+        public Dictionary<StockType, int> Stock { get; set; }
 
         public decimal Losses { get; set; }
 
+    }
+
+    public class Stock
+    {
+        public StockType Type { get; set; }
+        public int Quantity { get; set; }
     }
 }

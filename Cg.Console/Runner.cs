@@ -12,7 +12,7 @@ namespace Cg.Console
 {
     public class Runner
     {
-        public static List<string> Run(List<string> inputLines)
+        public static List<string> Run(List<string> inputLines, GlobalSession globalSession)
         {
             var tradeOperations = new List<TradeOperation[]>();
             foreach (string inputLine in inputLines) 
@@ -28,10 +28,12 @@ namespace Cg.Console
                     var service = new TradeService(tradeOperation);
                     var result = service.Execute();
                     results.Add(JsonSerializer.Serialize(result));
+                    globalSession.Tries = 0;
                 }
                 catch (OutOfStockException ex)
                 {
                     results.Add(ex.Message);
+                    globalSession.Tries++;
                 }
                 catch (InvalidOperationException ex) 
                 { 
@@ -41,6 +43,11 @@ namespace Cg.Console
 
             return results;
 
+        }
+
+        private static void BlockSession(GlobalSession globalSession) 
+        {
+            globalSession.Tries++;
         }
     }
 }

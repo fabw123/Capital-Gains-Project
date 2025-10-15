@@ -4,11 +4,12 @@ namespace Cg.Console.Models
 {
     public record TradeOperation
     {
-        public TradeOperation(string operation, decimal unitCost, int quantity)
+        public TradeOperation(string operation, decimal unitCost, int quantity, StockType type)
         {
             Operation = operation;
             UnitCost = unitCost;
             Quantity = quantity;
+            Type = type;
         }
 
         [JsonPropertyName("operation")]
@@ -19,6 +20,9 @@ namespace Cg.Console.Models
 
         [JsonPropertyName("quantity")]
         public int Quantity { get; init; }
+
+        [JsonPropertyName("type")]
+        public StockType Type { get; set; }
     }
         
 }

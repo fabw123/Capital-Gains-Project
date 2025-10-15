@@ -14,9 +14,10 @@ namespace Cg.Console.Operations
 
         public override TaxResult Execute(TradeOperation trade)
         {
-            _session.Stock = _session.Stock - trade.Quantity;
+            var stockTypeQuantity = _session.Stock[trade.Type] - trade.Quantity;
+            _session.Stock[trade.Type] = stockTypeQuantity;
 
-            if (_session.Stock < 0) 
+            if (stockTypeQuantity < 0) 
             {
                 throw new OutOfStockException(ErrorMessages.NOT_ENOUGH_STOCK);
             }

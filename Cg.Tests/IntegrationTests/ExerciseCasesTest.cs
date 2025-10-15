@@ -3,6 +3,7 @@ using Cg.Console.Models;
 using Cg.Console.Utils;
 using Cg.Tests.IntegrationTests.TestFiles;
 using System.Text.Json;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace Cg.Tests.IntegrationTests
 {
@@ -23,11 +24,12 @@ namespace Cg.Tests.IntegrationTests
         [DataRow("case9")]
         public void EssencialCases_Succeed(string useCase)
         {
+            GlobalSession session = new GlobalSession();
             var input = InputResources.ResourceManager.GetString(useCase);
             var output = OutputResources.ResourceManager.GetString(useCase);
             var expectedOutput = JsonSerializer.Deserialize<TaxResult[]>(output);
             List<string> inputLines = [input];
-            var result = Runner.Run(inputLines);
+            var result = Runner.Run(inputLines, session);
 
             var actualOutput = JsonSerializer.Deserialize<TaxResult[]>(result.FirstOrDefault());
             Assert.IsNotNull(result);
@@ -43,11 +45,12 @@ namespace Cg.Tests.IntegrationTests
         [TestMethod]
         public void MultipleCases_Succeed()
         {
+            GlobalSession session = new GlobalSession();
             var inputCase1 = InputResources.ResourceManager.GetString("case1");
             var inputCase2 = InputResources.ResourceManager.GetString("case2");
             List<string> inputLines = [inputCase1, inputCase2];
 
-            var result = Runner.Run(inputLines);
+            var result = Runner.Run(inputLines, session);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(inputLines.Count, result.Count);
@@ -65,12 +68,13 @@ namespace Cg.Tests.IntegrationTests
         [TestMethod]
         public void MultipleExecutions_fail_StockOutOfStock()
         {
+            GlobalSession session = new GlobalSession();
             var inputCase1 = InputResources.ResourceManager.GetString("case1");
             var inputContentCase1 = JsonSerializer.Deserialize<TradeOperation[]>(inputCase1);
             var inputOutOfStock = InputResources.ResourceManager.GetString("caseOutOfStock");
             List<string> inputLines = [inputCase1, inputOutOfStock];
 
-            var result = Runner.Run(inputLines);
+            var result = Runner.Run(inputLines, session);
             var resultCase1Content = JsonSerializer.Deserialize<TaxResult[]>(result[0]);
 
             Assert.IsNotNull(result);
@@ -82,12 +86,13 @@ namespace Cg.Tests.IntegrationTests
         [TestMethod]
         public void MultipleExecutions_fail_InvalidOperation()
         {
+            GlobalSession session = new GlobalSession();
             var inputCase2 = InputResources.ResourceManager.GetString("case2");
             var inputContentCase1 = JsonSerializer.Deserialize<TradeOperation[]>(inputCase2);
             var inputInvalidOperation = InputResources.ResourceManager.GetString("caseInvalidOperation");
             List<string> inputLines = [inputCase2, inputInvalidOperation];
 
-            var result = Runner.Run(inputLines);
+            var result = Runner.Run(inputLines, session);
             var resultCase1Content = JsonSerializer.Deserialize<TaxResult[]>(result[0]);
 
             Assert.IsNotNull(result);

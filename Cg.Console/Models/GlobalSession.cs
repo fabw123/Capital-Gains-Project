@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Cg.Console.Models
+{
+    public record GlobalSession
+    {
+        public int Tries { get; set; } = 0;
+
+		public bool Blocked => Tries >= 3;
+
+	}
+}

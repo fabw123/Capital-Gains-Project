@@ -1,24 +1,33 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Cg.Console;
 using Cg.Console.Models;
-using Cg.Console.Services;
-using System.Text.Json;
 
-List <string> inputLines = [];
-var inputLine = Console.ReadLine();
-while(!string.IsNullOrWhiteSpace(inputLine))
+
+GlobalSession globalSession = new();
+while (!globalSession.Blocked)
 {
-    inputLines.Add(inputLine);
-    inputLine = Console.ReadLine();
+
+    List<string> inputLines = [];
+    var inputLine = Console.ReadLine();
+    while (!string.IsNullOrWhiteSpace(inputLine))
+    {
+        inputLines.Add(inputLine);
+        inputLine = Console.ReadLine();
+    }
+
+    var result = Runner.Run(inputLines, globalSession);
+    foreach (var output in result)
+    {
+        Console.WriteLine(output);
+    }
 }
 
-var result = Runner.Run(inputLines);
-
-foreach(var output in result)
+if (globalSession.Blocked)
 {
-    Console.WriteLine(output);
+    Console.WriteLine("Session blocked after too many errors.");
+    Console.ReadKey();
 }
 
-Console.ReadLine();
+
 
 

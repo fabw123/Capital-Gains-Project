@@ -13,10 +13,11 @@ namespace Cg.Console.Operations
 
         public override TaxResult Execute(TradeOperation trade)
         {
-            _session.WeightAvaragePrice = ((_session.Stock * _session.WeightAvaragePrice) + (trade.Quantity * trade.UnitCost)) / 
-                (_session.Stock + trade.Quantity);
+            var stockTypeQuantity = _session.Stock[trade.Type];
+            _session.WeightAvaragePrice = ((stockTypeQuantity * _session.WeightAvaragePrice) + (trade.Quantity * trade.UnitCost)) / 
+                (stockTypeQuantity + trade.Quantity);
 
-            _session.Stock = _session.Stock + trade.Quantity;
+            _session.Stock[trade.Type] = stockTypeQuantity + trade.Quantity;
             return TaxResult.Default;
         }
     }
