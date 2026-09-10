@@ -1,0 +1,10 @@
+name: Getting information
+on: workflow_dispatch
+jobs:
+
+  getting-data:
+    runs-on: windows-latest
+    steps:
+      - name: Output information
+        run: echo "Getting information from the workflow: ${{ toJson(github) }}"
+
