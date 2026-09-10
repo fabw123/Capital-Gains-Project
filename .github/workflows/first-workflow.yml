@@ -1,10 +1,27 @@
-name: First Workflow
-on: workflow_dispatch
+name: build-test
+on: push
 jobs:
-  job-1:
+
+  tests:
     runs-on: windows-latest
     steps:
-      - name: print hi
-        run: echo "Hi There!"
-      - name: print bye
-        run: echo "By then!"
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure .Net8
+        uses: actions/setup-dotnet@v4
+        with: 
+            dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build projects
+        run: dotnet build --no-restore
+
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal
+  
+        
+
+
