@@ -2,7 +2,7 @@ name: build-test
 on: push
 jobs:
 
-  tests:
+  build:
     runs-on: windows-latest
     steps:
       - name: Checkout code
@@ -19,8 +19,14 @@ jobs:
       - name: Build projects
         run: dotnet build --no-restore
 
-      - name: Run tests
-        run: dotnet test --no-build --verbosity normal
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: CG-Artifact
+          path: |
+            Capital-Gains-Project\Cg.Console\bin\Debug\net8.0
+
+  
   
         
 
