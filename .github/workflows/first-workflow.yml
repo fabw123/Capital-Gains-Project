@@ -24,7 +24,7 @@ jobs:
         with:
           name: CG-Artifact
           path: |
-            Capital-Gains-Project/Cg.Console/bin/Debug/net8.0
+            Cg.Console/bin/Debug/net8.0
 
   
   
