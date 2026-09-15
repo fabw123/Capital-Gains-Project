@@ -26,6 +26,17 @@ jobs:
           path: |
             Cg.Console/bin/Debug/net8.0
 
+  Deploy:
+    runs-on: windows-latest
+    needs: build
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: CG-Artifact
+
+      - name: Output content
+        run: ls
   
   
         
